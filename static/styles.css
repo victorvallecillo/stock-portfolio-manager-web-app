@@ -1,0 +1,41 @@
+/* Center all forms */
+form {
+    max-width: 400px;
+    margin: auto;
+}
+
+/* Make tables look cleaner */
+table {
+    width: 100%;
+}
+
+table thead th {
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 8px;
+    text-transform: uppercase;
+}
+
+/* Improve spacing */
+td, th {
+    padding: 8px;
+}
+
+/* Colorful CS50 Finance text */
+.blue {
+    color: #537fbe;
+}
+.red {
+    color: #d9534f;
+}
+.yellow {
+    color: #f0ad4e;
+}
+.green {
+    color: #5cb85c;
+}
+
+/* Validation icon */
+footer img {
+    width: 50px;
+    opacity: 0.8;
+}
