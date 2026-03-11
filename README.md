@@ -35,5 +35,10 @@ A dynamic web application that allows users to manage a simulated investment por
 
 <img width="1404" height="873" alt="Captura de pantalla 2026-03-11 a las 15 27 34" src="https://github.com/user-attachments/assets/9d1353bf-47bc-46f8-9a6a-a4c8d4f7937c" />
 
+# Technical Note
+Following course completion, the live deployment server is offline. The full source code and architecture are available on GitHub for technical review.
+
+ 
+
 
 
