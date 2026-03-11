@@ -19,8 +19,7 @@ def apology(message, code=400):
             s = s.replace(old, new)
         return s
 
-    return (f"<h1>{code}</h1><p>{escape(message)}</p>", code)
-
+    return render_template("apology.html", top=code, bottom=escape(message)), code
 
 def login_required(f):
     @wraps(f)
