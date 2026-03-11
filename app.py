@@ -4,8 +4,12 @@ from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 
+# FIX #3: Importar HTTPException junto con default_exceptions
+# Antes solo se importaba default_exceptions pero se usaba HTTPException en errorhandler()
+# causando NameError en tiempo de ejecución
+from werkzeug.exceptions import default_exceptions, HTTPException
+
 from helpers import apology, login_required, lookup, usd
-from werkzeug.exceptions import default_exceptions
 
 
 app = Flask(__name__)
@@ -49,6 +53,10 @@ def index():
 
     for row in rows:
         quote = lookup(row["symbol"])
+        # FIX #4: Verificar que lookup() no devuelva None antes de acceder a "price"
+        # Si la API falla, quote sería None y price = quote["price"] lanzaría TypeError
+        if quote is None:
+            continue
         price = quote["price"]
         total_stock = price * row["shares"]
         portfolio.append({
@@ -238,6 +246,10 @@ def sell():
             return apology("too many shares", 400)
 
         quote = lookup(symbol)
+        # FIX #5: Verificar que lookup() no devuelva None al vender
+        if quote is None:
+            return apology("could not get stock price", 400)
+
         price = quote["price"]
         cash_add = price * shares
 
@@ -264,7 +276,7 @@ def add_cash():
             amount = float(amount)
             if amount <= 0:
                 return apology("invalid amount", 400)
-        except:
+        except (TypeError, ValueError):
             return apology("invalid amount", 400)
 
         db.execute("UPDATE users SET cash = cash + ? WHERE id = ?", amount, session["user_id"])
@@ -277,10 +289,11 @@ def add_cash():
 
 def errorhandler(e):
     """Handle error"""
+    # FIX #3 (continuación): HTTPException ahora está correctamente importada
     if isinstance(e, HTTPException):
         return apology(e.name, e.code)
     else:
-        return apology("Error interno", 500)
+        return apology("internal error", 500)
 
 
 # Listen for errors
