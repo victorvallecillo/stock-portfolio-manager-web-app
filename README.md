@@ -1,4 +1,4 @@
-Stock Portfolio Manager | CS50 Finance
+#Stock Portfolio Manager | CS50 Finance
 📌 Project Overview
 A dynamic web application that allows users to manage a simulated investment portfolio. Users can "buy" and "sell" stocks in real-time using the IEX API, track their transaction history, and view their current balance.
 +1
